@@ -1,0 +1,18 @@
+
+#Base Image for the Build
+FROM amazonlinux:2023 AS build-framework
+# AS name of this build stage
+
+RUN dnf update -y \
+    && dnf install -y httpd wget unzip 
+
+WORKDIR /var/www/html
+
+RUN wget https://github.com/Ahmednas211/jupiter-zip-file/raw/main/jupiter-main.zip \
+    && unzip jupiter-main.zip \
+    && cp -r /var/www/html/jupiter-main/* /var/www/html/ \
+    && rm -rf jupiter-main jupiter-main.zip
+
+EXPOSE 80
+
+CMD ["httpd", "-D", "FOREGROUND"]
