@@ -1,0 +1,17 @@
+FROM amazonlinux:latest AS building-frontend-framework
+
+#install all updates and packages 
+RUN dnf update -y \
+    && dnf install -y nodejs npm
+
+WORKDIR /opt/apci-s3-reader-app
+COPY package.json server.js ./
+COPY public/ ./public/
+
+#install all dependecies 
+RUN npm install
+
+EXPOSE 3000
+
+CMD [ "node", "server.js" ]
+                              
