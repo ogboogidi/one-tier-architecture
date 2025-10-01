@@ -1,0 +1,8 @@
+services:
+  httpd:
+    image: jupiter:2.0.0
+    container_name: ogboo-jupiter-app
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    
